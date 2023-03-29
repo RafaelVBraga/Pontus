@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org"
+	th:replace="~{template :: layout (~{:: main}, ~{::head})}">
+<head>
+<link th:href="@{/registros.css}" rel="stylesheet">
+</head>
+<body>
+	<main>
+		<hr>
+		<h2>Registros</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>Entrada</th>
+					<th>Saída</th>
+					<th>Excedente</th>
+					<th>Faltante</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>4568-s581a-5a681-5a65</td>
+					<td>13:00</td>
+					<td>17:00</td>
+					<td>00:00</td>
+					<td>00:00</td>
+				</tr>
+			</tbody>
+		</table>
+	</main>
+
+</body>
+</html>

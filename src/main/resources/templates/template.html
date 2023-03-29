@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org" th:fragment="layout (conteudo, headers)">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link th:href="@{/fontawesome/css/fontawesome.css}" rel="stylesheet">
+<link th:href="@{/fontawesome/css/brands.css}" rel="stylesheet">
+<link th:href="@{/fontawesome/css/solid.css}" rel="stylesheet">
+<link th:href="@{/template.css}"rel="stylesheet">
+<link th:replace="${headers}">
+<title>Pontus</title>
+
+</head>
+<body>
+	<div class="navbar">
+		<div class="logo">
+			<span><ion-icon name="stopwatch-outline"></ion-icon></span>
+		</div>
+		<ul>
+			<li><a th:href="@{/pontus/home}">Início</a></li>
+			<li><a th:href="@{/pontus/marcacao}">Marcação</a></li>
+			<li><a th:href="@{/pontus/registros}">Registros</a></li>
+			<li><a th:href="@{/pontus/gerencial}">Gerencial</a></li>
+		</ul>
+		<hr>
+	</div>
+	
+	<div class="center_container" th:replace="${conteudo}">
+		
+	</div>
+	<div class="footer"><span>@rvbraga soluções em T.I</span></div>
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>

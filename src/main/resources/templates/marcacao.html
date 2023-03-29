@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org"
+	th:replace="~{template :: layout (~{:: main}, ~{::head})}">
+<head>
+<link th:href="@{/marcacao.css}" rel="stylesheet">
+</head>
+<body>
+	<main>
+		<hr>
+		<h2>Marcação</h2>
+		<form>
+			<label>Tipo de marcação:</label>
+			<div>
+				<input id="desc_entrada" type="radio" name="descricao"
+					value="Entrada"> <label for="desc_entrada">Entrada</label>
+			</div>
+			<div>
+				<input id="desc_saida" type="radio" name="descricao" value="Saída">
+				<label for="desc_saida">Saída</label>
+			</div>
+			<input class="btn"type="submit" value="Registrar">
+		</form>
+	</main>
+
+</body>
+</html>

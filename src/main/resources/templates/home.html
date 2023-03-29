@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org"
+      th:replace="~{template :: layout (~{:: main}, ~{::head})}">
+<head>
+	<link th:href="@{/home.css}"rel="stylesheet">
+</head>
+<body>
+	<main>	
+	<hr>
+	<h2>Resumos</h2>
+		<div class="dados_mes">
+			<p><span>Mês</span><span>/</span><span>Ano</span></p>
+		</div>
+		<div class="quadros">
+			<div class="quadro"> <p>Total de Horas Trabalhadas</p> <p class="valor"><span>00:00:00</span></p></div>
+			<div class="quadro"> <p>Total de Horas Extras</p> <p class="valor"><span>00:00:00</span></p></div>
+			<div class="quadro"> <p>Total de Horas Devidas</p><p class="valor"><span>00:00:00</span></p> </div>
+		</div>
+	</main>
+
+</body>
+</html>
