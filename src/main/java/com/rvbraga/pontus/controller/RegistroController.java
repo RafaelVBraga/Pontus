@@ -2,6 +2,7 @@ package com.rvbraga.pontus.controller;
 
 import java.time.LocalDateTime;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -21,6 +22,7 @@ public class RegistroController {
 	
 	private RegistroService service;
 	
+	
 	@GetMapping("home")
 	public String home(Model model) {
 		return "home.html";
@@ -30,6 +32,7 @@ public class RegistroController {
 		
 		return "marcacao.html";
 	}
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@PostMapping("/marcacao")
 	public Registro registrar(Model model, @Validated@ModelAttribute("pesquisa") String descricao,  Errors errors) {
 		Registro registro = new Registro();
@@ -44,6 +47,7 @@ public class RegistroController {
 	public String registros() {
 		return "registros.html";
 	}
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("gerencial")
 	public String gerencial() {
 		return "gerencial.html";
