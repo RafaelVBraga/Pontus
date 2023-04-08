@@ -104,8 +104,7 @@ public class RegistroService {
 				else
 					resumo.setTempoFaltante(240 - tempo);
 			} catch (Exception e) {
-				System.out.println("Impossível calcular tempo!" + dia);
-				System.out.print(e.toString());
+				
 			}
 			resumoRegistros.add(resumo);
 		}

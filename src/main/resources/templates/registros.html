@@ -22,9 +22,9 @@
 			</thead>
 			<tbody>
 				<tr th:if="${registroMes.size() > 0}" th:each="item, iStat : ${registroMes}">
-					<td th:text="${item.dia}"></td>
-					<td th:text="${#temporals.hour(item.horaEntrada)+':'+#temporals.minute(item.horaEntrada)}">13:00</td>
-					<td th:text="${#temporals.hour(item.horaSaida)+':'+#temporals.minute(item.horaSaida)}">17:00</td>
+					<td class="celula" th:text="${item.dia}"></td>
+					<td th:text="${item.horaEntrada==null?'N/A': #temporals.hour(item.horaEntrada)+':'+#temporals.minute(item.horaEntrada)+':'+#temporals.second(item.horaEntrada)}">13:00</td>
+					<td th:text="${item.horaSaida==null?'N/A': #temporals.hour(item.horaSaida)+':'+#temporals.minute(item.horaSaida)+':'+#temporals.second(item.horaSaida)}">17:00</td>
 					<td th:text="${item.tempoExcedente}">00:00</td>
 					<td th:text="${item.tempoFaltante}">00:00</td>
 				</tr>
