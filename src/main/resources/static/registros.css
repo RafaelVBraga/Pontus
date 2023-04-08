@@ -11,6 +11,7 @@
 }
 
 table{
+	margin:15px;
 	background: #fff;
 }
 table thead{
@@ -23,4 +24,13 @@ table tbody td{
 	text-align: center;
 	border: 1px solid #fff2ff;
 	background: #f9f9f9;
+}
+h2{
+	margin: 15px;
+	color:var(--text);
+}
+p{
+	margin: 15px;
+	color:var(--text);
+	font-weight: 600;
 }

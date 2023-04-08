@@ -1,12 +1,9 @@
 package com.rvbraga.pontus.controller;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -49,14 +46,14 @@ public class RegistroController {
 	}
 	
 	@PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
-	@GetMapping("")
+	@GetMapping("home")
 	public String home(Model model) {
 		Usuario usuario;
 		
 		loadUsuarioLogado();
 		usuario = usuarioService.findByName(usuarioLogado);
 		model.addAttribute("usuarioId", usuario.getId());
-		System.out.println("Usuario_Id: "+usuario.getId());
+		
 		
 		return "home.html";
 	}
@@ -69,50 +66,52 @@ public class RegistroController {
 		loadUsuarioLogado();
 		usuario = usuarioService.findByName(usuarioLogado);
 		model.addAttribute("usuarioId", usuario.getId());
-		System.out.println("Usuario_Id: "+usuario.getId());
+		
 		return "marcacao.html";
 	}
 	@PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
 	@PostMapping("/marcacao") 
 	public String registrar(Model model,@RequestParam(value="usuarioId",required=true) UUID id, @RequestParam(value="descricao", required=true) String descricao)  {
-		
-		System.out.println("Id do Usuario a ser salvo: "+id);
-		
+				
 		try {
-		Usuario usuario = usuarioService.findById(id);
-		System.out.println("Usuário recuperado: "+ usuario.getUsername());
-		Registro registro = new Registro();
-		registro.setDescricao(descricao);
-		registro.setMarcacao(LocalDateTime.now());
-		registro.setStatus("Criado");
-		List<Registro> lista = usuario.getRegistros();
-		if(lista.isEmpty()) lista = new ArrayList<Registro>();
-		lista.add(registro);
-		usuario.setRegistros(lista);
-		registro.setUsuario(usuario);
-		registro.setAutorizador(null);
+		Registro registro = service.prepararNovoRegistro(id, descricao);
 		service.save(registro);
-		}catch(InvalidDataAccessApiUsageException ee) {
-			System.out.println("Erro ao recuperar usuário: "+ee.toString());
 		}catch(Exception e) {
 			System.out.println("Erro ao salvar registro: "+e.toString());
 		}
 		
-		return registros();
+		return registros(model);
 		
 	}
 	@PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
 	@GetMapping("registros")
-	public String registros() {
-		Usuario usuario;		 
+	public String registros(Model model) {
+		Usuario usuario;	 
+		LocalDate localDate = LocalDate.now();
 		loadUsuarioLogado();
 		usuario = usuarioService.findByName(usuarioLogado);
-		
+		model.addAttribute("usuarioId", usuario.getId());
+		model.addAttribute("mes",localDate.getMonthValue());
+		model.addAttribute("ano",localDate.getYear());
 		return "registros.html";
 	}
+	@PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+	@PostMapping("registros")
+	public String pesquisaRegistros(Model model,@RequestParam(value="usuarioId",required=true) UUID id, @RequestParam(value="mes", required=true) int mes, @RequestParam(value="ano", required=true)int ano) {
+		model.addAttribute("usuarioId", id);
+		model.addAttribute("mes",mes);
+		model.addAttribute("ano",ano);
+		model.addAttribute("registroMes", service.carregaRegistrosMes(id, mes, ano));
+		return "registros";
+	}
+	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("gerencial")
-	public String gerencial() {
+	public String gerencial(Model model) {
+		Usuario usuario;	 
+		loadUsuarioLogado();
+		usuario = usuarioService.findByName(usuarioLogado);
+		model.addAttribute("usuarioId", usuario.getId());
 		return "gerencial.html";
 	}
 	

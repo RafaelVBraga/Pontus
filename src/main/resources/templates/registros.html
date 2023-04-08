@@ -6,12 +6,14 @@
 </head>
 <body>
 	<main>
+		
 		<hr>
 		<h2>Registros</h2>
+		<p><span th:text="${mes}"></span> / <span th:text="${ano}"></span></p>		
 		<table>
 			<thead>
 				<tr>
-					<th>id</th>
+					<th>Dia</th>
 					<th>Entrada</th>
 					<th>Saída</th>
 					<th>Excedente</th>
@@ -19,15 +21,23 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>4568-s581a-5a681-5a65</td>
-					<td>13:00</td>
-					<td>17:00</td>
-					<td>00:00</td>
-					<td>00:00</td>
+				<tr th:if="${registroMes.size() > 0}" th:each="item, iStat : ${registroMes}">
+					<td th:text="${item.dia}"></td>
+					<td th:text="${#temporals.hour(item.horaEntrada)+':'+#temporals.minute(item.horaEntrada)}">13:00</td>
+					<td th:text="${#temporals.hour(item.horaSaida)+':'+#temporals.minute(item.horaSaida)}">17:00</td>
+					<td th:text="${item.tempoExcedente}">00:00</td>
+					<td th:text="${item.tempoFaltante}">00:00</td>
 				</tr>
 			</tbody>
 		</table>
+		<div>
+			<form th:action="@{/pontus/registros}" method="POST">
+				<input hidden="hidden"th:name="usuarioId" th:value="${usuarioId}">
+				<label> Mês <input type="number" th:name="mes" th:value="${mes}"></label>
+				<label> Anos <input type="number" th:name="ano" th:value="${ano}"></label>
+				<input type="submit" value="Pesquisar">
+			</form>
+		</div>
 	</main>
 
 </body>

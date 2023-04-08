@@ -13,5 +13,5 @@ public interface RegistroRepository extends JpaRepository<Registro, UUID>{
 
 	List<Registro> findByUsuario(Usuario usr);
 	List<Registro> findByUsuarioAndMarcacaoAfterAndMarcacaoBeforeOrderByMarcacao(Usuario usr,LocalDateTime start, LocalDateTime end);
-
+	
 }
