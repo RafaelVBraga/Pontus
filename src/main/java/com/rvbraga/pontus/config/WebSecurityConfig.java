@@ -26,6 +26,9 @@ public class WebSecurityConfig {
 				.authorizeHttpRequests()
 				.anyRequest().authenticated()
 				.and()
+				.formLogin()
+				.loginPage("/pontus/login").permitAll()				
+				.and()				
 				.csrf().disable();
 		
 		return http.build();

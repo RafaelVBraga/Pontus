@@ -8,14 +8,18 @@
 	<main>
 		<hr>
 		<h2>Marcação</h2>
-		<form>
+		<div class="info">
+		<p th:text ="${usuarioId}"></p>
+		</div>
+		<form th:action="@{/pontus/marcacao}" method="POST">
 			<label>Tipo de marcação:</label>
 			<div>
-				<input id="desc_entrada" type="radio" name="descricao"
+				<input type="text" hidden="hidden" th:name ="usuarioId" th:value="${usuarioId}">
+				<input id="desc_entrada" type="radio" th:name="descricao"
 					value="Entrada"> <label for="desc_entrada">Entrada</label>
 			</div>
 			<div>
-				<input id="desc_saida" type="radio" name="descricao" value="Saída">
+				<input id="desc_saida" type="radio" th:name="descricao" value="Saída">
 				<label for="desc_saida">Saída</label>
 			</div>
 			<input class="btn"type="submit" value="Registrar">
